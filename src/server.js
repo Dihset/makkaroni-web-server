@@ -6,14 +6,10 @@ import morgan from 'morgan';
 const app = express();
 
 app.use(cors());
-app.use(bodyParser.json())
-app.use(morgan('combined'))
-
-app.get('/', (req, res) => res.send('hello'));
-
-app.get('/hello', (req, res) => res.send('Liza go sex'));
-
+app.use(bodyParser.json());
+app.use(morgan('combined'));
+app.use('/api', require('./controllers'));
 app.listen(
-    8080, 
-    () => console.log('Start app in 8080 port')
+    7100,
+    () => console.log('Start app in 7100 port')
 );
