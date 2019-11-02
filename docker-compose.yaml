@@ -1,0 +1,43 @@
+version: "3.5"
+services:
+  #==================================
+  #             STORAGES
+  #==================================
+  node-mongodb:
+    container_name: node-mongodb
+    image: mongo
+    hostname: node-mongodb
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/node-mongodb:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    networks:
+      - node-network
+    restart: always
+
+  #===================================
+  #           STORAGES GUI
+  #===================================
+  node-mongodb-gui:
+    container_name: node-mongodb-gui
+    image: mongo-express
+    hostname: node-mongodb-gui
+    environment:
+      ME_CONFIG_MONGODB_SERVER: node-mongodb
+      ME_CONFIG_OPTIONS_EDITORTHEME: ambiance
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: root
+    ports:
+      - 8081:8081
+    depends_on:
+      - sherlock-mongodb
+    networks:
+      - sherlock-network
+    restart: always
+
+    #===================================
+    #
+    #===================================
